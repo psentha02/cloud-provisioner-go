@@ -95,7 +95,7 @@ go run ./cmd/main.go delete-rg mygroup
 ## 📂 Project Structure
 
 ```
-cloud-resource-group-manager/
+cloud-provisioner-go/
 ├── cmd/
 │   └── main.go          # Command-line entry point for the tool
 ├── internal/
@@ -125,21 +125,3 @@ as part of real-world DevOps workflows. It’s built for:
 - 💡 Clean and modular code.
 - 🧰 Practical Azure SDK usage.
 - 📈 Scalable for future cloud tooling.
-
----
-
-## 📜 License
-
-MIT License.
-
----
-
-## 🙌 Contributions
-
-Pull requests and suggestions are welcome!  
-Let’s make cloud automation simple and fun.
-```
-
----
-
-Just copy and paste this into your `README.md` file, and it’ll be all set! 🎉 Let me know if you need any other updates or additions.
