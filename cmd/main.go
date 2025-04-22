@@ -4,53 +4,50 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/psentha/cloud-provisioner-go/internal/provisioner"
+	"github.com/psentha02/cloud-provisioner-go/internal/azure"
 )
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: cloud-provisioner-go <command>")
-		fmt.Println("Available commands: create, list, delete")
+		fmt.Println("Usage: create-rg <resourceGroupName> <location>")
 		return
 	}
 
 	command := os.Args[1]
 
 	switch command {
-	case "create":
-		if len(os.Args) < 3 {
-			fmt.Println("Usage: cloud-provisioner-go create <resource_name>")
+
+	case "create-rg":
+		if len(os.Args) < 4 {
+			fmt.Println("Usage: create-rg <resourceGroupName> <location>")
 			return
 		}
 		name := os.Args[2]
-		resource := provisioner.CreateResource(name)
-		fmt.Printf("Created resource: %s (ID: %s, Status: %s)\n", resource.Name, resource.ID, resource.Status)
-
-	case "list":
-		resources := provisioner.ListResources()
-		if len(resources) == 0 {
-			fmt.Println("No resources found.")
-			return
-		}
-		fmt.Println("Listing all resources:")
-		for _, resource := range resources {
-			fmt.Printf("ID: %s, Name: %s, Status: %s\n", resource.ID, resource.Name, resource.Status)
+		location := os.Args[3]
+		err := azure.CreateResourceGroup(name, location)
+		if err != nil {
+			fmt.Printf("Error creating resource group: %v\n", err)
 		}
 
-	case "delete":
+	case "list-rg":
+		err := azure.ListResourceGroups()
+		if err != nil {
+			fmt.Printf("Error listing resource groups: %v\n", err)
+		}
+
+	case "delete-rg":
 		if len(os.Args) < 3 {
-			fmt.Println("Usage: cloud-provisioner-go delete <resource_id>")
+			fmt.Println("Usage: delete-rg <resourceGroupName>")
 			return
 		}
-		id := os.Args[2]
-		success := provisioner.DeleteResource(id)
-		if success {
-			fmt.Printf("Resource with ID %s deleted.\n", id)
-		} else {
-			fmt.Printf("Resource with ID %s not found.\n", id)
+		name := os.Args[2]
+		err := azure.DeleteResourceGroup(name)
+		if err != nil {
+			fmt.Printf("Error deleting resource group: %v\n", err)
 		}
 
 	default:
-		fmt.Printf("Unknown command: %s\n", command)
+		fmt.Println("Unknown command.")
 	}
+
 }
