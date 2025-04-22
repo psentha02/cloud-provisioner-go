@@ -1,4 +1,3 @@
-```markdown
 # 🌩️ Cloud Resource Group Manager — Go + Azure
 
 A beginner-friendly cloud automation CLI tool built with **Go** that uses the Azure SDK to manage Resource Groups from your terminal.
@@ -21,7 +20,8 @@ This project is part of my journey into cloud development and DevOps using Go, d
 
 - [Go](https://go.dev/doc/install) installed.
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) installed and logged in:
-  
+
+
 ```bash
 az login
 ```
